@@ -8,27 +8,39 @@ export default function Home() {
   const [url,setUrl]=React.useState('')
   const [loading,setLoading]=React.useState(false)
   const [download,setDownload]=React.useState('')
-  const downloadVideo=()=>{
+  const downloadVideo=async()=>{
     setLoading(true)
-    fetch(`http://localhost:3002/download?url=${url}`)
-    .then(res=>res.json())
-    .then(data=>{
-      setDownload(data.url)
-      setLoading(false)
+   try {
+    await axios.post(API_URL+'video',{
+      url:url
     })
+    .then(res=>{
+      setDownload(res.data.videoSrc)
+      setLoading(false)
+    }
+    )
     .catch(err=>{
       console.log(err)
       setLoading(false)
     })
+
+    
+   } catch (error) {
+      console.log(error)
+      setLoading(false)
+   }
+   finally{
+      setLoading(false)
+   }
   }
   const downloadImage=async()=>{
     setLoading(true)
    try {
-    await axios.post(API_URL+'download',{
+    await axios.post(API_URL,{
       url:url
     })
     .then(res=>{
-      setDownload(res.data.url)
+      setDownload(res.data.imgSrc)
       setLoading(false)
     }
     )
@@ -92,11 +104,13 @@ export default function Home() {
                 <input type="text" onChange={(e)=>{
                   setUrl(e.target.value)
                 }} className='w-96 h-14 rounded-l-lg px-4' value={url} placeholder='Enter Pinterest URL'/>
-                <button className='bg-blue-500 w-24 h-14 rounded-r-lg text-white' onClick={downloadImage} >Download</button>
+                <button className='bg-blue-500 w-24 h-14 rounded-lg text-white' onClick={downloadImage} >Download Image</button>
+                <button className='bg-blue-500 w-24 h-14 rounded-lg text-white' onClick={downloadVideo} >Download Video</button>
                 </div>
                 <div className="flex mt-5">
-                 {download==='' ? <></> :  <div className='bg-white w-[200px] h-[200px] rounded-lg flex justify-center items-center'>
-                    <img src={download} alt="download" className='w-[150px] h-[150px]'/>
+                 {download==='' ? <></> :  <div className='gap-5 w-auto h-auto rounded-lg flex flex-col justify-center items-center'>
+                    <video src={download}  className='w-auto h-[200px]'/>
+                    <a href={download} download className='bg-blue-500 w-24 h-14 text-white rounded-lg flex justify-center items-center'>Download</a>
                     </div>}
                
                 </div>
