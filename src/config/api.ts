@@ -1,1 +1,1 @@
-export const API_URL='http://localhost:3004/';
+export const API_URL='https://pinterest-server-6zsk.onrender.com';
