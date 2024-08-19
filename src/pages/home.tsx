@@ -40,7 +40,7 @@ export default function Home() {
       url:url
     })
     .then(res=>{
-      setDownload(res.data.imgSrc)
+      setDownload(res.data.imageUrl)
       setLoading(false)
     }
     )
