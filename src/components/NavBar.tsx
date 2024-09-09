@@ -1,22 +1,58 @@
 import React from 'react'
-
+import logo from '../logo.svg'
 export default function NavBar() {
+  const currentPath = window.location.pathname;
+  console.log(currentPath)
   return (
-    <header className="text-gray-600 body-font sticky z-10 bg-white">
-  <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-    <a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
-        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-      </svg>
-      <span className="ml-3 text-xl">Tailblocks</span>
-    </a>
-    <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
-
-    </nav>
-    <button className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Blogs
- 
-    </button>
-  </div>
-</header>
+    <header className='flex shadow-lg py-4 px-4 sm:px-10 bg-white font-[sans-serif] min-h-[70px] tracking-wide relative z-50'>
+    <div className='flex flex-wrap items-center justify-between gap-4 w-full'>
+      <a href="javascript:void(0)"
+        className="lg:absolute max-lg:left-10 lg:top-2/4 lg:left-2/4 lg:-translate-x-1/2 lg:-translate-y-1/2"><img
+        src={logo}  alt="logo" className='w-24' />
+      </a>
+  
+      <div id="collapseMenu"
+        className='max-lg:hidden lg:!block max-lg:w-full max-lg:fixed max-lg:before:fixed max-lg:before:bg-black max-lg:before:opacity-50 max-lg:before:inset-0 max-lg:before:z-50'>
+        <button id="toggleClose" className='lg:hidden fixed top-2 right-4 z-[100] rounded-full bg-white p-3'>
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-4 fill-black" viewBox="0 0 320.591 320.591">
+            <path
+              d="M30.391 318.583a30.37 30.37 0 0 1-21.56-7.288c-11.774-11.844-11.774-30.973 0-42.817L266.643 10.665c12.246-11.459 31.462-10.822 42.921 1.424 10.362 11.074 10.966 28.095 1.414 39.875L51.647 311.295a30.366 30.366 0 0 1-21.256 7.288z"
+              data-original="#000000"></path>
+            <path
+              d="M287.9 318.583a30.37 30.37 0 0 1-21.257-8.806L8.83 51.963C-2.078 39.225-.595 20.055 12.143 9.146c11.369-9.736 28.136-9.736 39.504 0l259.331 257.813c12.243 11.462 12.876 30.679 1.414 42.922-.456.487-.927.958-1.414 1.414a30.368 30.368 0 0 1-23.078 7.288z"
+              data-original="#000000"></path>
+          </svg>
+        </button>
+  
+        <ul
+          className='lg:flex lg:gap-x-5 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50'>
+          <li className='mb-6 hidden max-lg:block'>
+            <a href="javascript:void(0)"><img src={logo} alt="logo" className='w-36' />
+            </a>
+          </li>
+          <li className='max-lg:border-b max-lg:py-3 px-3'>
+            <a href='/'
+              className={currentPath=='/' ? 'text-[#007bff] hover:text-[#007bff]  block font-semibold text-[15px]': 'hover:text-[#007bff]  block font-semibold text-[15px]'}>Home</a>
+          </li>
+      
+          <li className='max-lg:border-b max-lg:py-3 px-3'><a href='/blogs'
+              className={currentPath=="/blogs" ? 'text-[#007bff] hover:text-[#007bff]  block font-semibold text-[15px]': 'hover:text-[#007bff]  block font-semibold text-[15px]'}>Blog</a>
+          </li>
+        </ul>
+      </div>
+  
+      <div className='flex items-center ml-auto space-x-6'>
+    
+  
+        <button id="toggleOpen" className='lg:hidden'>
+          <svg className="w-7 h-7" fill="#333" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+              d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
   )
 }
