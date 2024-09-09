@@ -87,7 +87,7 @@ export default function Blogs() {
   const [blogs,setBlogs]=React.useState([])
   React.useEffect(()=>{
     setLoading(true)
-    fetch('http://localhost:3004/posts')
+    fetch(API_URL+'/posts')
     .then(res=>res.json())
     .then(data=>{
       setBlogs(data)
