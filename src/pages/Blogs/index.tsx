@@ -4,6 +4,7 @@ import bg from '../assets/bg.svg'
 import { Loader2Icon } from 'lucide-react'
 import axios from 'axios'
 import { API_URL } from '../../config/api'
+import Footer from '../Admin/comps/Footer'
 export default function Blogs() {
   const [url,setUrl]=React.useState('')
   const [loading,setLoading]=React.useState(false)
@@ -87,7 +88,7 @@ export default function Blogs() {
   const [blogs,setBlogs]=React.useState([])
   React.useEffect(()=>{
     setLoading(true)
-    fetch(API_URL+'/posts')
+    fetch(API_URL+'posts')
     .then(res=>res.json())
     .then(data=>{
       setBlogs(data)
@@ -100,7 +101,10 @@ export default function Blogs() {
     )
   }
   ,[])
-  
+  const dateTimeFormat=(date:any)=>{
+    const d=new Date(date)
+    return d.toLocaleString()
+  }
 
   return (
    <>
@@ -112,32 +116,35 @@ export default function Blogs() {
     </div>
     <div className='min-h-screen w-full ' >
         <NavBar/>
-        <section className="py-24 ">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="font-manrope text-4xl font-bold text-gray-900 text-center mb-16">Our latest  blog</h2>
-          <div className="flex justify-center  gap-y-8 lg:gap-y-0 flex-wrap md:flex-wrap lg:flex-nowrap lg:flex-row lg:justify-between lg:gap-x-8">
-            {
-              blogs.map((blog:any,index)=>{
-                return(
-                  <div key={index} className="max-w-md w-full lg:w-[30%] bg-white shadow-lg rounded-lg overflow-hidden">
-                  <div className="px-6 py-4">
-                    <h3 className="font-manrope text-2xl font-bold text-gray-900 mb-2">{blog?.title}</h3>
-                    <p className="text-gray-700 text-base">{blog?.content}</p>
-                  </div>
-                  <div className="px-6 pt-4 pb-2">
-                    <a href="#" className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Read More</a>
-                  </div>
-                </div>
-                )
-
-
-            }
-            )
-            }
+        <div className="bg-gray-100 md:px-10 px-4 py-12 font-[sans-serif]">
+      <div className="max-w-5xl max-lg:max-w-3xl max-sm:max-w-sm mx-auto">
+        <h2 className="text-3xl font-extrabold text-gray-800 mb-8">Latest Blog Posts</h2>
+       {blogs.length> 0 ?  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-sm:gap-8">
+         {blogs.map((blog:any,index)=>{
+          return(
+            <div className="bg-white rounded overflow-hidden" key={index}> 
+            <img src={blog?.banner} alt="Blog Post 1" className="w-full h-52 object-cover" />
+            <div className="p-6">
+              <h3 className="text-lg font-bold text-gray-800 mb-3">{blog?.title}</h3>
+              <p className="text-orange-500 text-[13px] font-semibold mt-4">{dateTimeFormat(blog?.createdAt)}</p>
+              <a href={"/blogs/"+blog?.id} className="mt-4 inline-block px-4 py-2 rounded tracking-wider bg-orange-500 hover:bg-orange-600 text-white text-[13px]">Read More</a>
             </div>
+          </div>
+          )
+        })}
+          
+         
+          </div>
+        :
+        <div className="flex items-center justify-center h-[80vh]">
+          <p className="text-gray-500 text-lg">No blogs found</p>
         </div>
-    </section>
-                                            
+
+        }
+      </div>
+    </div>
+    <Footer/>
+                             
     </div>
    </>
   )

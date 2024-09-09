@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Admin from './pages/Admin';
 import { AuthProvider } from './hooks';
 import Blogs from './pages/Blogs';
-
+import BlogDetail from './pages/BlogDetails'
 function App() {
   return (
   <AuthProvider>
@@ -15,6 +15,8 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path='/blogs' element={<Blogs />} />
       <Route path='/admin' element={<Admin/>} />
+      <Route path='/blogs/:id' element={<BlogDetail />} />
+
     </Routes>
     
     </BrowserRouter>
