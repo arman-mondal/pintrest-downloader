@@ -93,6 +93,22 @@ export default function Home() {
     })
   }
 
+  const handleDownload = async (fileUrl:string,fileName:string) => {
+    try {
+      const response = await fetch(fileUrl);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Download failed', error);
+    }
+  };
   return (
    <>{
     download.includes('.mp4') ? 
@@ -107,12 +123,8 @@ export default function Home() {
       <video src={download} controls className='w-[500px] rounded-md h-[500px]'/>
       <div className='w-full p-2'>
     <Button onClick={()=>{
-       const link = document.createElement('a');
-       link.href = download; // image url
-       link.download = 'downloaded_image.jpg'; // Filename to save as
-       document.body.appendChild(link);
-       link.click();
-       document.body.removeChild(link);
+      handleDownload(download,'downloaded_image.mp4')
+
       }} colorScheme='red'>Download</Button>
     </div>
       </div>
@@ -130,12 +142,7 @@ export default function Home() {
       <img src={download} alt="download" className='w-[500px] rounded-md h-[500px]'/>
     <div className='w-full p-2'>
     <Button onClick={()=>{
-       const link = document.createElement('a');
-       link.href = download; // image url
-       link.download = 'downloaded_image.jpg'; // Filename to save as
-       document.body.appendChild(link);
-       link.click();
-       document.body.removeChild(link);
+      handleDownload(download,'downloaded_image.jpg')
       }} colorScheme='red'>Download</Button>
     </div>
 
